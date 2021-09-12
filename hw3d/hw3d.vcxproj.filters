@@ -587,6 +587,9 @@
     <ClInclude Include="Source.h">
       <Filter>Header Files\Jobber\Passlib\Base</Filter>
     </ClInclude>
+    <ClInclude Include="ChiliWRL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -677,6 +680,21 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="BlurOutline_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test1_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test2_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

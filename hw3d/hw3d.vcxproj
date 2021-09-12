@@ -101,6 +101,8 @@
     <ClCompile Include="BlurOutlineRenderGraph.cpp" />
     <ClCompile Include="BufferClearPass.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraContainer.cpp" />
+    <ClCompile Include="CameraIndicator.cpp" />
     <ClCompile Include="ChiliException.cpp" />
     <ClCompile Include="ChiliTimer.cpp" />
     <ClCompile Include="ChiliUtil.cpp" />
@@ -110,7 +112,9 @@
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
     <ClCompile Include="DynamicConstant.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="HorizontalBlurPass.cpp" />
+    <ClCompile Include="Projection.cpp" />
     <ClCompile Include="Sink.cpp" />
     <ClCompile Include="RenderGraph.cpp" />
     <ClCompile Include="FullscreenPass.cpp" />
@@ -302,6 +306,8 @@
     <ClInclude Include="BufferClearPass.h" />
     <ClInclude Include="BufferResource.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraContainer.h" />
+    <ClInclude Include="CameraIndicator.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliMath.h" />
     <ClInclude Include="ChiliTimer.h" />
@@ -316,10 +322,12 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="DepthStencil.h" />
     <ClInclude Include="DynamicConstant.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="HorizontalBlurPass.h" />
     <ClInclude Include="LambertianPass.h" />
     <ClInclude Include="OutlineDrawingPass.h" />
     <ClInclude Include="OutlineMaskGenerationPass.h" />
+    <ClInclude Include="Projection.h" />
     <ClInclude Include="RenderGraph.h" />
     <ClInclude Include="FullscreenPass.h" />
     <ClInclude Include="GraphicsResource.h" />
@@ -391,6 +399,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
     <ClInclude Include="WindowsThrowMacros.h" />
+    <ClInclude Include="WireframePass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc" />

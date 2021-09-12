@@ -94,18 +94,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="Blender.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChiliException.cpp" />
     <ClCompile Include="ChiliTimer.cpp" />
     <ClCompile Include="ChiliUtil.cpp" />
     <ClCompile Include="ChiliXM.cpp" />
+    <ClCompile Include="DepthStencil.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
     <ClCompile Include="DynamicConstant.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GraphicsResource.cpp" />
     <ClCompile Include="ImguiManager.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -120,6 +121,18 @@
     <ClCompile Include="LayoutCodex.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <FxCompile Include="Fullscreen_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Funk_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="LightVectorData.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -169,6 +182,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="ScriptCommander.cpp" />
     <ClCompile Include="SolidSphere.cpp" />
@@ -232,8 +246,10 @@
     <ClInclude Include="ConstantBuffers.h" />
     <ClInclude Include="ConstantBuffersEx.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="DepthStencil.h" />
     <ClInclude Include="DynamicConstant.h" />
     <ClInclude Include="FrameCommander.h" />
+    <ClInclude Include="GraphicsResource.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="LayoutCodex.h" />
@@ -246,6 +262,7 @@
     <ClInclude Include="Pass.h" />
     <ClInclude Include="PerfLog.h" />
     <ClInclude Include="Rasterizer.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="ScriptCommander.h" />
     <ClInclude Include="Stencil.h" />
     <ClInclude Include="Step.h" />

@@ -6,6 +6,7 @@
 #include "imgui/imgui.h"
 #include "VertexBuffer.h"
 #include "ChiliUtil.h"
+#include "Testing.h"
 
 namespace dx = DirectX;
 
@@ -16,6 +17,7 @@ App::App( const std::string& commandLine )
 	scriptCommander( TokenizeQuoted( commandLine ) ),
 	light( wnd.Gfx() )
 {
+	TestDynamicConstant();
 	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
 	//tp.SetPos( { 12.0f,0.0f,0.0f } );
 	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );

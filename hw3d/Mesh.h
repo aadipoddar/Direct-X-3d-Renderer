@@ -9,6 +9,7 @@
 #include "ConditionalNoexcept.h"
 #include "ConstantBuffers.h"
 #include <type_traits>
+#include <filesystem>
 #include "imgui/imgui.h"
 
 
@@ -57,6 +58,7 @@ public:
 	Node( int id,const std::string& name,std::vector<Mesh*> meshPtrs,const DirectX::XMMATRIX& transform ) noxnd;
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
 	void SetAppliedTransform( DirectX::FXMMATRIX transform ) noexcept;
+	const DirectX::XMFLOAT4X4& GetAppliedTransform() const noexcept;
 	int GetId() const noexcept;
 	void ShowTree( Node*& pSelectedNode ) const noexcept;
 	template<class T>
@@ -127,13 +129,13 @@ private:
 class Model
 {
 public:
-	Model( Graphics& gfx,const std::string fileName );
+	Model( Graphics& gfx,const std::string& pathString,float scale = 1.0f );
 	void Draw( Graphics& gfx ) const noxnd;
 	void ShowWindow( Graphics& gfx,const char* windowName = nullptr ) noexcept;
 	void SetRootTransform( DirectX::FXMMATRIX tf ) noexcept;
 	~Model() noexcept;
 private:
-	static std::unique_ptr<Mesh> ParseMesh( Graphics& gfx,const aiMesh& mesh,const aiMaterial* const* pMaterials );
+	static std::unique_ptr<Mesh> ParseMesh( Graphics& gfx,const aiMesh& mesh,const aiMaterial* const* pMaterials,const std::filesystem::path& path,float scale );
 	std::unique_ptr<Node> ParseNode( int& nextId,const aiNode& node ) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;

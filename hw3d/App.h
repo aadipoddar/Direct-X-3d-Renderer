@@ -11,7 +11,7 @@
 class App
 {
 public:
-	App();
+	App( const std::string& commandLine = "" );
 	// master frame / message loop
 	int Go();
 	~App();
@@ -19,6 +19,7 @@ private:
 	void DoFrame();
 	void ShowImguiDemoWindow();
 private:
+	std::string commandLine;
 	bool showDemoWindow = false;
 	ImguiManager imgui;
 	Window wnd;
@@ -26,8 +27,8 @@ private:
 	float speed_factor = 1.0f;
 	Camera cam;
 	PointLight light;
-	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj" };
-	//Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj" };
-	//TestPlane tp{ wnd.Gfx(),1.0 };
-	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj" };
+	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",6.0f };
+	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
+	TestPlane tp{ wnd.Gfx(),6.0 };
+	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 };

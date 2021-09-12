@@ -2,10 +2,10 @@
 #include "Cube.h"
 #include "BindableCommon.h"
 #include "ConstantBuffersEx.h"
-#include "TransformCbufDoubleboi.h"
 #include "imgui/imgui.h"
 #include "DynamicConstant.h"
 #include "TechniqueProbe.h"
+#include "TransformCbufScaling.h"
 
 TestCube::TestCube( Graphics& gfx,float size )
 {
@@ -20,10 +20,12 @@ TestCube::TestCube( Graphics& gfx,float size )
 	pIndices = IndexBuffer::Resolve( gfx,geometryTag,model.indices );
 	pTopology = Topology::Resolve( gfx,D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 	
+	auto tcb = std::make_shared<TransformCbuf>( gfx );
+
 	{
 		Technique shade("Shade");
 		{
-			Step only( 0 );
+			Step only( "lambertian" );
 
 			only.AddBindable( Texture::Resolve( gfx,"Images\\brickwall.jpg" ) );
 			only.AddBindable( Sampler::Resolve( gfx ) );
@@ -46,7 +48,9 @@ TestCube::TestCube( Graphics& gfx,float size )
 
 			only.AddBindable( InputLayout::Resolve( gfx,model.vertices.GetLayout(),pvsbc ) );
 
-			only.AddBindable( std::make_shared<TransformCbuf>( gfx ) );
+			only.AddBindable( Rasterizer::Resolve( gfx,false ) );
+
+			only.AddBindable( tcb );
 
 			shade.AddStep( std::move( only ) );
 		}
@@ -56,31 +60,19 @@ TestCube::TestCube( Graphics& gfx,float size )
 	{
 		Technique outline("Outline");
 		{
-			Step mask( 1 );
-
-			auto pvs = VertexShader::Resolve( gfx,"Solid_VS.cso" );
-			auto pvsbc = pvs->GetBytecode();
-			mask.AddBindable( std::move( pvs ) );
+			Step mask( "outlineMask" );
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBindable( InputLayout::Resolve( gfx,model.vertices.GetLayout(),pvsbc ) );
+			mask.AddBindable( InputLayout::Resolve( gfx,model.vertices.GetLayout(),VertexShader::Resolve( gfx,"Solid_VS.cso" )->GetBytecode() ) );
 
-			mask.AddBindable( std::make_shared<TransformCbuf>( gfx ) );
+			mask.AddBindable( std::move( tcb ) );
 
 			// TODO: might need to specify rasterizer when doubled-sided models start being used
 
 			outline.AddStep( std::move( mask ) );
 		}
 		{
-			Step draw( 2 );
-
-			// these can be pass-constant (tricky due to layout issues)
-			auto pvs = VertexShader::Resolve( gfx,"Solid_VS.cso" );
-			auto pvsbc = pvs->GetBytecode();
-			draw.AddBindable( std::move( pvs ) );
-
-			// this can be pass-constant
-			draw.AddBindable( PixelShader::Resolve( gfx,"Solid_PS.cso" ) );
+			Step draw( "outlineDraw" );
 
 			Dcb::RawLayout lay;
 			lay.Add<Dcb::Float4>( "color" );
@@ -89,8 +81,8 @@ TestCube::TestCube( Graphics& gfx,float size )
 			draw.AddBindable( std::make_shared<Bind::CachingPixelConstantBufferEx>( gfx,buf,1u ) );
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBindable( InputLayout::Resolve( gfx,model.vertices.GetLayout(),pvsbc ) );
-
+			draw.AddBindable( InputLayout::Resolve( gfx,model.vertices.GetLayout(),VertexShader::Resolve( gfx,"Solid_VS.cso" )->GetBytecode() ) );
+			
 			draw.AddBindable( std::make_shared<TransformCbuf>( gfx ) );
 
 			// TODO: might need to specify rasterizer when doubled-sided models start being used
